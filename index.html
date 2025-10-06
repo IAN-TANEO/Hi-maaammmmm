@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appreciation Message For Ma'am Dorisss</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS Variables & Global Styles --- */
+        :root {
+            --coffee-brown: #6f4e37;
+            --coffee-light: #a67b5b;
+            --coffee-cream: #f3e5d8;
+            --coffee-dark: #4b3621;
+            --coffee-accent: #c79a6d;
+            --envelope-height: 250px;
+            --envelope-width: 380px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #8b6b4c 0%, #6f4e37 50%, #4b3621 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            user-select: none;
+            cursor: default;
+            position: relative;
+        }
+
+        /* Coffee Beans Background */
+        .coffee-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(107, 71, 40, 0.3) 2px, transparent 2px),
+                radial-gradient(circle at 80% 70%, rgba(107, 71, 40, 0.3) 2px, transparent 2px),
+                radial-gradient(circle at 40% 80%, rgba(107, 71, 40, 0.3) 2px, transparent 2px),
+                radial-gradient(circle at 60% 20%, rgba(107, 71, 40, 0.3) 2px, transparent 2px);
+            background-size: 100px 100px;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        .steam-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .steam {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: steam-float 8s infinite;
+        }
+
+        @keyframes steam-float {
+            0% { 
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.1;
+            }
+            100% { 
+                transform: translateY(-100px) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        .centered-container {
+            width: 100%;
+            max-width: 420px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- 1. GREETING AREA (Above Envelope) --- */
+        #greeting-area {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-in, transform 1s ease-in;
+            margin-bottom: 30px;
+            text-align: center;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        #greeting-area.visible {
+            opacity: 1;
+            transform: translateY(-20px);
+        }
+
+        .profile-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid var(--coffee-accent);
+            box-shadow: 0 0 15px rgba(199, 154, 109, 0.5);
+            margin-bottom: 8px;
+        }
+
+        .greeting-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--coffee-cream);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- 2. ENVELOPE BASE --- */
+        .envelope {
+            position: relative;
+            width: var(--envelope-width);
+            height: var(--envelope-height);
+            max-width: 90vw;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--coffee-dark) 0%, var(--coffee-brown) 100%);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(199, 154, 109, 0.2) inset;
+            transition: all 0.5s ease-out;
+            cursor: pointer;
+            z-index: 5;
+            border: 1px solid var(--coffee-light);
+        }
+
+        /* Coffee stain effect on envelope */
+        .coffee-stain {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, rgba(107, 71, 40, 0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        .stain-1 { top: 20px; left: 30px; transform: rotate(15deg); }
+        .stain-2 { bottom: 40px; right: 25px; transform: rotate(-20deg); width: 40px; height: 40px; }
+
+        /* Subtle glowing effect for the closed, clickable state */
+        .envelope:not(.opened) {
+            animation: coffee-glow 2s infinite alternate;
+        }
+
+        @keyframes coffee-glow {
+            0% { box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 10px var(--coffee-accent); }
+            100% { box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 20px var(--coffee-accent); }
+        }
+
+        /* Flap */
+        .top-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(135deg, var(--coffee-brown) 0%, var(--coffee-light) 100%);
+            border-radius: 12px 12px 0 0;
+            z-index: 2;
+            transform-origin: top;
+            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            clip-path: polygon(0 0, 100% 0, 50% 100%); 
+            border: 1px solid var(--coffee-accent);
+        }
+
+        .envelope.opened .top-flap {
+            transform: rotateX(180deg) translateY(100%); 
+            z-index: 0;
+        }
+
+        /* Envelope details */
+        .envelope-detail {
+            position: absolute;
+            width: 90%;
+            height: 90%;
+            top: 5%;
+            left: 5%;
+            border: 1px solid var(--coffee-accent);
+            border-radius: 4px;
+            opacity: 0.3;
+            z-index: 2;
+        }
+
+        /* Coffee cup seal */
+        .coffee-seal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, var(--coffee-accent) 0%, var(--coffee-brown) 100%);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--coffee-cream);
+            font-size: 24px;
+            box-shadow: 0 0 15px rgba(199, 154, 109, 0.7);
+            z-index: 4;
+            transition: all 0.5s ease;
+        }
+
+        .envelope.opened .coffee-seal {
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+        }
+
+        /* Corner decorations */
+        .corner-decoration {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            z-index: 2;
+        }
+
+        .corner-tl {
+            top: 10px;
+            left: 10px;
+            border-top: 2px solid var(--coffee-accent);
+            border-left: 2px solid var(--coffee-accent);
+        }
+
+        .corner-tr {
+            top: 10px;
+            right: 10px;
+            border-top: 2px solid var(--coffee-accent);
+            border-right: 2px solid var(--coffee-accent);
+        }
+
+        .corner-bl {
+            bottom: 10px;
+            left: 10px;
+            border-bottom: 2px solid var(--coffee-accent);
+            border-left: 2px solid var(--coffee-accent);
+        }
+
+        .corner-br {
+            bottom: 10px;
+            right: 10px;
+            border-bottom: 2px solid var(--coffee-accent);
+            border-right: 2px solid var(--coffee-accent);
+        }
+
+        /* --- 3. COFFEE CUP (Rises from envelope) --- */
+        .coffee-container {
+            position: absolute;
+            bottom: 0; 
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 30px;
+            z-index: 4;
+            overflow: hidden;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease 0.5s;
+        }
+        
+        .envelope.opened .coffee-container {
+            opacity: 1;
+        }
+
+        /* Coffee cup animation */
+        .coffee-cup {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            width: 60px;
+            height: 0;
+            background: linear-gradient(to top, var(--coffee-brown) 0%, var(--coffee-light) 100%);
+            border-radius: 0 0 10px 10px;
+            transition: transform 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) 1.2s, height 1s ease-out;
+            opacity: 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .coffee-container.coffee-grown .coffee-cup {
+            opacity: 1;
+            transform: translateX(-50%) scale(1);
+            height: 120px;
+        }
+
+        /* Coffee inside cup */
+        .coffee-liquid {
+            position: absolute;
+            bottom: 0;
+            left: 5px;
+            right: 5px;
+            height: 80px;
+            background: linear-gradient(to top, var(--coffee-dark) 0%, var(--coffee-brown) 100%);
+            border-radius: 0 0 8px 8px;
+        }
+
+        .coffee-handle {
+            position: absolute;
+            right: -15px;
+            top: 30px;
+            width: 20px;
+            height: 40px;
+            border: 5px solid var(--coffee-light);
+            border-left: none;
+            border-radius: 0 20px 20px 0;
+        }
+
+        .coffee-steam {
+            position: absolute;
+            bottom: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: height 0.5s ease 2.2s;
+        }
+
+        .coffee-container.coffee-grown .coffee-steam {
+            height: 60px;
+        }
+
+        /* --- 4. LETTER PAPER (Slides Up and Unfolds) --- */
+        .letter-paper {
+            position: absolute;
+            top: var(--envelope-height);
+            left: 0;
+            width: 100%;
+            min-height: var(--envelope-height);
+            max-height: 0;
+            background: linear-gradient(135deg, var(--coffee-cream) 0%, #f8f1e6 100%);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            padding: 0 30px;
+            overflow: hidden;
+            border: 1px solid var(--coffee-light);
+            
+            transition: 
+                transform 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.5s,
+                max-height 1.2s ease-out 1.2s,
+                opacity 0.1s linear 0.5s;
+            
+            z-index: 3;
+        }
+
+        .letter-paper.letter-unfolded {
+            transform: translateY(calc(-1 * var(--envelope-height))); 
+            max-height: 600px;
+            opacity: 1;
+        }
+        
+        .letter-content-scroll {
+            height: 100%;
+            padding-bottom: 40px;
+            overflow-y: auto;
+            max-height: 500px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--coffee-brown) #f0f0f0;
+        }
+
+        .letter-content-scroll::-webkit-scrollbar { width: 6px; }
+        .letter-content-scroll::-webkit-scrollbar-track { background: #f0f0f0; border-radius: 10px; }
+        .letter-content-scroll::-webkit-scrollbar-thumb { background: var(--coffee-brown); border-radius: 10px; }
+
+        .letter-header {
+            text-align: center;
+            padding: 20px 0 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px dashed var(--coffee-light);
+        }
+
+        .letter-message {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            line-height: 1.5;
+            color: var(--coffee-dark);
+            margin-bottom: 20px;
+        }
+        
+        .message-item {
+            background: rgba(111, 78, 55, 0.1);
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--coffee-brown);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .message-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(111, 78, 55, 0.15);
+        }
+
+        .message-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: var(--coffee-dark);
+            line-height: 1.4;
+            margin-bottom: 5px;
+        }
+
+        .message-author {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--coffee-brown);
+            text-align: right;
+        }
+
+        /* Coffee bean decorations */
+        .coffee-bean {
+            position: absolute;
+            width: 12px;
+            height: 8px;
+            background: var(--coffee-dark);
+            border-radius: 50%;
+            transform: rotate(45deg);
+            opacity: 0.6;
+        }
+
+        .bean-1 { top: 15px; left: 20px; }
+        .bean-2 { top: 25px; right: 30px; }
+        .bean-3 { bottom: 35px; left: 40px; }
+
+        /* Floating coffee particles */
+        .floating-particle {
+            position: fixed;
+            pointer-events: none;
+            opacity: 0;
+            font-size: 24px;
+            animation: float-up 4s ease-out forwards;
+            z-index: 9999;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Close button */
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--coffee-brown);
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 480px) {
+            :root {
+                --envelope-width: 90vw;
+                --envelope-height: 200px;
+            }
+            .greeting-text { font-size: 2rem; }
+            .letter-paper.letter-unfolded { max-height: 500px; }
+            .letter-message { font-size: 1.5rem; }
+            .letter-content-scroll { max-height: 400px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Coffee Background -->
+    <div class="coffee-bg"></div>
+    <div class="steam-particles" id="steamParticles"></div>
+
+    <div class="centered-container" id="container">
+        
+        <!-- GREETING MESSAGE (Fades in first) -->
+        <div id="greeting-area">
+            <img 
+                src="Maam doris.jpg" 
+                alt="Professor's Profile Photo" 
+                class="profile-photo"
+                onerror="this.onerror=null; this.src='Maam doris.jpg';"
+            >
+            <h1 class="greeting-text"></h1>
+        </div>
+
+        <!-- 3. COFFEE CUP (Rises) -->
+        <div class="coffee-container" id="coffeeContainer">
+            <div class="coffee-cup" id="coffeeCup">
+                <div class="coffee-liquid"></div>
+                <div class="coffee-handle"></div>
+                <div class="coffee-steam"></div>
+            </div>
+        </div>
+
+        <!-- 1. ENVELOPE (Clickable) -->
+        <div class="envelope" id="envelope">
+            <!-- Coffee stains -->
+            <div class="coffee-stain stain-1"></div>
+            <div class="coffee-stain stain-2"></div>
+            
+            <!-- Coffee beans -->
+            <div class="coffee-bean bean-1"></div>
+            <div class="coffee-bean bean-2"></div>
+            <div class="coffee-bean bean-3"></div>
+            
+            <!-- Envelope details -->
+            <div class="envelope-detail"></div>
+            
+            <!-- Corner decorations -->
+            <div class="corner-decoration corner-tl"></div>
+            <div class="corner-decoration corner-tr"></div>
+            <div class="corner-decoration corner-bl"></div>
+            <div class="corner-decoration corner-br"></div>
+            
+            <!-- Coffee cup seal -->
+            <div class="coffee-seal">☕</div>
+            
+            <div class="top-flap"></div>
+            
+            <!-- 5. LETTER PAPER (Slides and unfolds from this position) -->
+            <div class="letter-paper" id="letterPaper">
+                <button class="close-btn" id="closeBtn">×</button>
+                <div class="letter-content-scroll">
+                    <!-- Letter Top -->
+                    <div class="letter-header">
+                        <img 
+                            src="Maam doris.jpg" 
+                            alt="Professor's Profile Photo" 
+                            class="profile-photo mx-auto"
+                            style="width: 60px; height: 60px;"
+                            onerror="this.onerror=null; this.src='Maam doris.jpg';"
+                        >
+                        <p class="letter-message text-center pt-2">Hi po ma'am, please read with care po hehe... from your very buotan nga class CS - 2</p>
+                    </div>
+
+                    <!-- 6. HEARTFELT MESSAGES -->
+                    <div id="messages">
+                        <div class="message-item">
+                            <p class="message-text">"Hi Ma'am Dors!!!
+
+Chillin' like a villain, yeah, ra-ra-ra jud kaayo ka ma'am slay ka diha nga part😝💅🏻💅🏻 
+Deserb kaayo ang cake unta ma gustuhan nimo ang flavor ana ma'am hehe🤗
+
+HAPPY TEACHER'S DAY MAAAAMMM DORA charot MA'AM DORIS HEHEHE🥳🎂
+
+"</p>
+                            <p class="message-author">— MetsXD</p>
+                        </div>
+                        <div class="message-item">
+                            <p class="message-text">"Hello Ma'am! "</p>
+                            <p class="message-author">— Matty</p>
+                        </div>
+                        <div class="message-item">
+                            <p class="message-text">"Happy teacher's Day!! 😄 😛😎🎊ma'am"</p>
+                            <p class="message-author">— - lorenzo</p>
+                        </div>
+                        <div class="message-item">
+                            <p class="message-text">"YHappy Teachers Day ma'am Doris, manifesting lucky pulls in games and in real life"</p>
+                            <p class="message-author">— Acezuuu</p>
+                        </div>
+                        <div class="message-item">
+                            <p class="message-text">"Happy Teachers' Day Ma'am Doris, tara PUBG!!! chour "</p>
+                            <p class="message-author">— Yugs</p>
+                        </div>
+                          <div class="message-item">
+                            <p class="message-text">"Hi maam.....................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                ..................................................................................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                .................................................................
+                                thank you sa mga tinuturo mo sa amin kahit walang klase hehe, pero bitaw maam ma miss ka namo, that's why gusto gyud mi na magklase kay sayang ang learnings, ma sad kami 🙁 and also pasensya na kay dungol mi usahay, may mga sakit abi kami maam, pagpasensyahan niyo na po, thank you po maam!!!!!!!!!!!!!!!!"</p>
+                            <p class="message-author">— Matty</p>
+                        </div>
+                        <div class="message-item">
+                            <p class="message-text">"Ma'am ma defend pa gyud mig final project ma'am? ayaw nlng ma'am uyssss........ "</p>
+                            <p class="message-author">— Tansss</p>
+                        </div>
+                        <div class="message-item">
+                            <p class="message-text">"joke ra ma'am haaaaaa hapi tetsirs dayyyyy 😝💅🏻💅🏻  "</p>
+                            <p class="message-author">— Tansss</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const envelope = document.getElementById('envelope');
+        const greetingArea = document.getElementById('greeting-area');
+        const coffeeContainer = document.getElementById('coffeeContainer');
+        const letterPaper = document.getElementById('letterPaper');
+        const closeBtn = document.getElementById('closeBtn');
+        const steamParticles = document.getElementById('steamParticles');
+        
+        let isOpened = false;
+
+        // Create steam particles
+        function createSteam() {
+            for (let i = 0; i < 15; i++) {
+                const steam = document.createElement('div');
+                steam.classList.add('steam');
+                
+                // Random position and size
+                const size = Math.random() * 100 + 50;
+                steam.style.width = `${size}px`;
+                steam.style.height = `${size}px`;
+                steam.style.left = `${Math.random() * 100}vw`;
+                
+                // Random animation delay and duration
+                steam.style.animationDelay = `${Math.random() * 8}s`;
+                steam.style.animationDuration = `${8 + Math.random() * 4}s`;
+                
+                steamParticles.appendChild(steam);
+            }
+        }
+
+        function handleClick() {
+            if (isOpened) return;
+            isOpened = true;
+            envelope.style.cursor = 'default';
+            
+            // --- Step 1 & 2: Open Flap & Fade in Greeting ---
+            envelope.classList.add('opened');
+            greetingArea.classList.add('visible');
+
+            // --- Step 3: Coffee Cup Animation (after flap opens) ---
+            setTimeout(() => {
+                coffeeContainer.classList.add('coffee-grown');
+            }, 500);
+
+            // --- Step 4 & 5: Letter Slide Up and Unfold (after coffee cup rises) ---
+            setTimeout(() => {
+                letterPaper.classList.add('letter-unfolded');
+            }, 2500); 
+
+            // Create floating coffee particles
+            createCoffeeParticles();
+        }
+
+        function closeEnvelope() {
+            envelope.classList.remove('opened');
+            greetingArea.classList.remove('visible');
+            coffeeContainer.classList.remove('coffee-grown');
+            letterPaper.classList.remove('letter-unfolded');
+            isOpened = false;
+            envelope.style.cursor = 'pointer';
+        }
+
+        envelope.addEventListener('click', handleClick);
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeEnvelope();
+        });
+
+        // Coffee-themed particles
+        const COFFEE_PARTICLES = ['☕', '🌱', '✨', '🌟', '💖', '📚'];
+
+        // Function for the particle burst when the envelope is opened
+        function createCoffeeParticles() {
+            const rect = envelope.getBoundingClientRect();
+            
+            for (let i = 0; i < 12; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'floating-particle';
+                    particle.textContent = COFFEE_PARTICLES[Math.floor(Math.random() * COFFEE_PARTICLES.length)];
+                    
+                    // Start particles from the seal area
+                    particle.style.left = (rect.left + (rect.width / 2) + (Math.random() * 100 - 50)) + 'px';
+                    particle.style.top = (rect.top + (rect.height / 2)) + 'px';
+                    
+                    document.body.appendChild(particle);
+                    
+                    setTimeout(() => particle.remove(), 4000);
+                }, i * 75);
+            }
+        }
+
+        // Initialize
+        createSteam();
+    </script>
+</body>
+</html>
